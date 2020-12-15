@@ -1,0 +1,11 @@
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+*_srv.jl
+*_msg.jl
+*_action.jl
+*.swp
+*.swo
+src/gen/*
+docs/build/*
