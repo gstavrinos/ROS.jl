@@ -6,3 +6,9 @@ version = "0.1.0"
 [deps]
 Cxx = "a0b5b9ef-44b7-5148-a2d1-f6db19f3c3d2"
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+
+[compat]
+Cxx = "0.3.4"
+julia = "1.3"
+Documenter = "0.25"
