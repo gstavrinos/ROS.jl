@@ -35,5 +35,5 @@ jobs:
                     Pkg.add("Libdl");
                     using Cxx;
                     Pkg.instantiate();'
-        - julia --project docs/make.jl
+        - source /opt/ros/noetic/setup.bash && julia --project docs/make.jl
       after_success: skip
