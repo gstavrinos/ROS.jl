@@ -31,6 +31,7 @@ jobs:
                                     Pkg.add("Cxx");
                                     Pkg.build("Cxx");
                                     Pkg.add("Documenter");
+                                    Pkg.add("Libdl");
                                     using Cxx;
                                     Pkg.instantiate();
                                     Pkg.add(PackageSpec(path=pwd()))'
