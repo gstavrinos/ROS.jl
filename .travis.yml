@@ -34,5 +34,5 @@ jobs:
                     Pkg.add("Libdl");
                     using Cxx;
                     Pkg.instantiate();'
-        - julia --project=docs/ docs/make.jl
+        - julia --project docs/make.jl
       after_success: skip

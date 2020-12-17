@@ -28,3 +28,7 @@ makedocs(
     ]
 )
 
+deploydocs(
+    repo = "github.com/gstavrinos/ROS.jl.git"
+)
+
