@@ -27,6 +27,7 @@ jobs:
       os: linux
       script:
         - julia --project=docs/ -e 'using Pkg;
+                                    ENV["JULIA_CXX_RTTI"]=1;
                                     Pkg.add("Cxx");
                                     Pkg.build("Cxx");
                                     using Cxx;
