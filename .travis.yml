@@ -30,6 +30,7 @@ jobs:
                                     ENV["JULIA_CXX_RTTI"]=1;
                                     Pkg.add("Cxx");
                                     Pkg.build("Cxx");
+                                    Pkg.add("Documenter");
                                     using Cxx;
                                     Pkg.instantiate();
                                     Pkg.add(PackageSpec(path=pwd()))'
