@@ -17,6 +17,7 @@ before_install:
   - source /opt/ros/noetic/setup.bash
   - sudo rosdep init
   - rosdep update
+  - sudo cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ~/julia/lib/julia/libstdc++.so.6
 
 # TODO tests
 
