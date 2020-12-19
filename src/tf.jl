@@ -81,11 +81,6 @@ Test if a transform is possible.
 """
 canTransform(buffer::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("tf2_ros::Buffer")},(false, false, false)},(false, false, false)}, target_frame::String, source_frame::String, time::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Time")},(false, false, false)},N} where N,(false, false, false)}, timeout::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N,(false, false, false)}) = @cxx buffer->canTransform(pointer(target_frame), pointer(source_frame), *(time), *(timeout))
 
-"""
-    canTransform(buffer, target_frame::String, source_frame::String, time, timeout)
-
-Test if a transform is possible.
-"""
 canTransform(buffer::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("tf2_ros::Buffer")},(false, false, false)},(false, false, false)}, target_frame::String, source_frame::String, time::Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Time")},(false, false, false)},N} where N, timeout::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N,(false, false, false)}) = @cxx buffer->canTransform(pointer(target_frame), pointer(source_frame), time, *(timeout))
 
 canTransform(buffer::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("tf2_ros::Buffer")},(false, false, false)},(false, false, false)}, target_frame::String, source_frame::String, time::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Time")},(false, false, false)},N} where N,(false, false, false)}, timeout::Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N) = @cxx buffer->canTransform(pointer(target_frame), pointer(source_frame), *(time), timeout)
