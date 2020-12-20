@@ -351,7 +351,7 @@ end
 
 function msgGenerator(overwrite=false)
     println("Generating ROS types...")
-    types_of_interest = ["msg", "srv", "action"]
+    #  types_of_interest = ["msg", "srv", "action"]
     types_of_interest = ["msg", "srv"]
     packages = package.getAll()
     for p in packages
