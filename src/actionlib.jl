@@ -79,11 +79,11 @@ Allows polling implementations to query about the status of the current goal.
 isActive(action_server::Cxx.CxxCore.CppPtr) = @cxx action_server->isActive()
 
 """
-    isNewGoalRequested(action_server)
+    isNewGoalAvailable(action_server)
 
 Allows polling implementations to query about the availability of a new goal.
 """
-isNewGoalRequested(action_server::Cxx.CxxCore.CppPtr) = @cxx action_server->isNewGoalRequested()
+isNewGoalAvailable(action_server::Cxx.CxxCore.CppPtr) = @cxx action_server->isNewGoalAvailable()
 
 """
     isPreemptRequested(action_server)
@@ -246,11 +246,6 @@ Sends a goal to the ActionServer, and waits until the goal completes or a timeou
 """
 sendGoalAndWait(action_client::Cxx.CxxCore.CppPtr, goal::Cxx.CxxCore.CppPtr, ex_timeout::Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N where N}, pr_timeout::Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N where N}) = icxx"$action_client->sendGoalAndWait(*$goal, $ex_timeout, $pr_timeout);"
 
-"""
-    sendGoalAndWait(action_client, goal, pr_timeout)
-
-Sends a goal to the ActionServer, and waits until the goal completes or a timeout is exceeded.
-"""
 sendGoalAndWait(action_client::Cxx.CxxCore.CppPtr, goal::Cxx.CxxCore.CppPtr, ex_timeout::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N,(false, false, false)}, pr_timeout::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N,(false, false, false)}) = icxx"$action_client->sendGoalAndWait(*$goal, *$ex_timeout, *$pr_timeout);"
 
 sendGoalAndWait(action_client::Cxx.CxxCore.CppPtr, goal::Cxx.CxxCore.CppPtr, ex_timeout::Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N where N}, pr_timeout::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppBaseType{Symbol("ros::Duration")},(false, false, false)},N} where N,(false, false, false)}) = icxx"$action_client->sendGoalAndWait(*$goal, $ex_timeout, *$pr_timeout);"
