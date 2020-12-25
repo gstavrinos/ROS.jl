@@ -86,11 +86,7 @@ end
 function startGen(pkg, file, type, fullpath, overwrite)
     jl_fname = "$(pkg)_$(file).jl"
     target = joinpath(@__DIR__,"gen",jl_fname)
-    #  if isfile(target) || target != joinpath(@__DIR__,"gen","roscpp_tutorials_TwoInts.jl")
-    #  if target != joinpath(@__DIR__,"gen","actionlib_tutorials_TwoInts.jl")
-    #  if ! occursin("geometry_msgs", target)
-    #  if ! overwrite && ! occursin("std_msgs", target)
-    if ! overwrite && ! occursin("std_msgs", target)
+    if ! overwrite && isfile(target)
         println(target," found but already generated. Skipping.")
     else
         thefile = joinpath(fullpath, file*"."*type)
