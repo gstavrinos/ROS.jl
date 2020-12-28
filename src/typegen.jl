@@ -312,6 +312,8 @@ function fileAnalysis(file, parent_pkg, t)
                 end
                 if haskey(primitive_types, type)
                     type = primitive_types[type]
+                elseif haskey(primitive_types, replace(type, r"\[(.*)\]" => ""))
+                    type = primitive_types[replace(type, r"\[(.*)\]" => "")]
                 else
                     if !occursin("/", type)
                         type = parent_pkg * "/" * type
@@ -321,7 +323,7 @@ function fileAnalysis(file, parent_pkg, t)
                     type = replace(type, '/' => '.')
                 end
                 if occursin(".", type)
-                    if endswith(type, "[]")
+                    if endswith(type, r"\[(.*)\]")
                         type = "Vector{Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}}"
                     else
                         type = "Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}"
