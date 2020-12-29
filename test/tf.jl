@@ -1,5 +1,5 @@
 
-ROS.@include geometry_msgs: TransformStamped, PoseStamped, PointStamped, Vector3Stamped
+ROS.@include geometry_msgs: TransformStamped, PoseStamped, PointStamped, Vector3Stamped, Quaternion
 
 ROS.init("testTF")
 nh = ROS.NodeHandle()
@@ -58,5 +58,15 @@ p.vector.y = 0.6
 
 ROS.tf.transform(bf, p, "gps_link", ROS.Time(0), "base_link", ROS.Duration(2))
 ROS.tf.transform(bf, p, "base_link", ROS.Duration(2))
+
+q1 = ROS.geometry_msgs_Quaternion()
+q1.z = 1
+q1.w = 1
+q1 = ROS.tf.normalize(q1)
+@test q1.z ≈ 0.707 atol=1e-03
+q2 = ROS.tf.setRPY(3, 0, 0.00001)
+@test q2.x ≈ 1 atol=0.01
+q3 = q1*q2
+q4 = q2*q1
 
 println("All $(basename(@__FILE__)) tests passed.")

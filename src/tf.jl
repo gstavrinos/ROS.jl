@@ -296,5 +296,40 @@ function transform(buffer::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCor
     end
 end
 
+"""
+    setRPY(roll::Number, pitch::Number, yaw::Number)
+
+Euler angles (roll/pitch/yaw) to geometry_msgs::Quaternion.
+"""
+function setRPY(roll::Number, pitch::Number, yaw::Number)
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf_quat.setRPY($roll, $pitch, $yaw);
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
 end
 
+"""
+    normalize(quaternion)
+
+Normalize a geometry_msgs::Quaternion (useful after calculations).
+"""
+function normalize(quaternion)
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        tf_quat.normalize();
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
+end
+
+function Base.:*(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return new geometry_msgs::Quaternion(tf2::toMsg(q1*q2));
+    """
+end
+
+end
