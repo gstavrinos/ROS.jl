@@ -323,6 +323,23 @@ function normalize(quaternion)
     """
 end
 
+# TODO
+# angle
+# angleShortestPath
+# dot
+# getAngle
+# getAngleShortestPath
+# getAxis
+# inverse
+# length
+# length2
+# - (self and between quats)
+# setEuler
+# setEulerZYX
+# setRotation
+# slerp
+# setRPY fix documentation
+
 function Base.:*(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
     icxx"""
         tf2::Quaternion q1, q2;
