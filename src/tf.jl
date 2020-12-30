@@ -296,5 +296,230 @@ function transform(buffer::Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCor
     end
 end
 
+"""
+    setRPY(roll::Number, pitch::Number, yaw::Number)
+
+Roll,Pitch,Yaw to geometry_msgs::Quaternion.
+"""
+function setRPY(roll::Number, pitch::Number, yaw::Number)
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf_quat.setRPY($roll, $pitch, $yaw);
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
 end
 
+"""
+    setEuler(yaw::Number, pitch::Number, roll::Number)
+
+Euler angles (yaw/pitch/roll) to geometry_msgs::Quaternion.
+"""
+function setEuler(yaw::Number, pitch::Number, roll::Number)
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf_quat.setEuler($yaw, $pitch, $roll);
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
+end
+
+"""
+    normalize(quaternion)
+
+Normalize a geometry_msgs::Quaternion (useful after calculations).
+"""
+function normalize(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        tf_quat.normalize();
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
+end
+
+"""
+    angle(q1, q2)
+
+Return the half angle between q1 and q2 geometry_msgs::Quaternions.
+"""
+function angle(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return q1.angle(q2);
+    """
+end
+
+"""
+    angleShortestPath(q1, q2)
+
+Return the angle between q1 and q2 geometry_msgs::Quaternions.
+"""
+function angleShortestPath(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return q1.angleShortestPath(q2);
+    """
+end
+
+"""
+    dot(q1, q2)
+
+Return the dot product between q1 and q2 geometry_msgs::Quaternions.
+"""
+function dot(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return q1.dot(q2);
+    """
+end
+
+"""
+    getAngle(quaternion)
+
+Return the angle [0, 2π] of rotation represented by this quaternion.
+"""
+function getAngle(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        return tf_quat.getAngle();
+    """
+end
+
+"""
+    getAngleShortestPath(quaternion)
+
+Return the angle [0, π] of rotation represented by this quaternion.
+"""
+function getAngleShortestPath(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        return tf_quat.getAngleShortestPath();
+    """
+end
+
+"""
+    inverse(quaternion)
+
+Return the inverse of this geometry_msgs::Quaternion.
+"""
+function inverse(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat.inverse()));
+    """
+end
+
+"""
+    getAxis(quaternion)
+
+Return the axis of the rotation represented by this geometry_msgs::Quaternion. 
+"""
+function getAxis(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    unsafe_wrap(DenseArray,
+        icxx"""
+            tf2::Quaternion tf_quat;
+            tf2::fromMsg(*$quaternion, tf_quat);
+            tf2::Vector3 v3 = tf_quat.getAxis();
+            std::vector<double> v = {v3.x(), v3.y(), v3.z()};
+            return v;
+        """
+    )
+end
+
+"""
+    length(quaternion)
+
+Return the length of the quaternion.
+"""
+function length(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        return tf_quat.length();
+    """
+end
+
+"""
+    length2(quaternion)
+
+Return the length squared of the quaternion.
+"""
+function length2(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        return tf_quat.length2();
+    """
+end
+
+"""
+    slerp(q1, q2, t::Number)
+
+Return the geometry_msgs::Quaternion which is the result of Spherical Linear Interpolation between q1 and q2 geometry_msgs::Quaternions.
+"""
+function slerp(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, t::Number)
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return new geometry_msgs::Quaternion(tf2::toMsg(q1.slerp(q2, $t)));
+    """
+end
+
+"""
+    setRotation(quaternion, axis::Union{Array,Vector}, angle::Number)
+
+Set the rotation using axis angle notation.
+"""
+function setRotation(quaternion::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, axis::Union{Array,Vector}, angle::Number)
+    icxx"""
+        tf2::Quaternion tf_quat;
+        tf2::fromMsg(*$quaternion, tf_quat);
+        tf_quat.setRotation(tf2::Vector3($(axis[1]), $(axis[2]), $(axis[3])), $angle);
+        return new geometry_msgs::Quaternion(tf2::toMsg(tf_quat));
+    """
+end
+
+function Base.:-(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return new geometry_msgs::Quaternion(tf2::toMsg(q1-q2));
+    """
+end
+
+function Base.:-(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q($(-q1.x), $(-q1.y), $(-q1.z), $(-q1.w));
+        return new geometry_msgs::Quaternion(tf2::toMsg(q));
+    """
+end
+
+function Base.:*(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return new geometry_msgs::Quaternion(tf2::toMsg(q1*q2));
+    """
+end
+
+function Base.:+(q1::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}}, q2::Union{Cxx.CxxCore.CppPtr{Cxx.CxxCore.CppValue{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},N} where N,(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}, Cxx.CxxCore.CppPtr{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("geometry_msgs::Quaternion_")},Tuple{Cxx.CxxCore.CxxQualType{Cxx.CxxCore.CppTemplate{Cxx.CxxCore.CppBaseType{Symbol("std::allocator")},Tuple{Nothing}},(false, false, false)}}},(false, false, false)},(false, false, false)}})
+    icxx"""
+        tf2::Quaternion q1, q2;
+        tf2::fromMsg(*$q1, q1);
+        tf2::fromMsg(*$q2, q2);
+        return new geometry_msgs::Quaternion(tf2::toMsg(q1+q2));
+    """
+end
+
+end
