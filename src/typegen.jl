@@ -185,7 +185,7 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
                 meta *= "@cxx c->$(fields[i])\n"
             end
         # Vector of misc message type
-        elseif occursin("Vector{", types[i])
+        elseif types[i] == "Union{Vector, Array}"
             meta *= "unsafe_wrap(DenseArray, @cxx c->$(fields[i]))\n"
         # Misc message type
         else
@@ -232,7 +232,6 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
             if types[i] == "String"
                 meta *= "icxx\" \$c->$(fields[i]) = \$(pointer(value));\"\n"
             elseif occursin("Vector{", types[i])
-                #  meta *= "icxx\" \$c->$(fields[i]) = \$(pointer(value));\"\n"
                 meta *= "icxx\" \$c->$(fields[i]).clear();\"\n"
                 meta *= "    for i in 1:length(value)\n"
                 meta *= "        icxx\" \$c->$(fields[i]).push_back(\$(value[i]));\"\n"
@@ -244,6 +243,12 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
             else
                 meta *= "icxx\" \$c->$(fields[i]) = \$value;\"\n"
             end
+        # Vector of misc message type
+        elseif types[i] == "Union{Vector, Array}"
+            meta *= "icxx\" \$c->$(fields[i]).clear();\"\n"
+            meta *= "    for i in 1:length(value)\n"
+            meta *= "        icxx\" \$c->$(fields[i]).push_back(*\$(value[i]));\"\n"
+            meta *= "    end\n"
         # Misc message type
         else
             meta *= "icxx\" \$c->$(fields[i]) = \$value;\"\n"
@@ -324,7 +329,7 @@ function fileAnalysis(file, parent_pkg, t)
                 end
                 if occursin(".", type)
                     if endswith(type, r"\[(.*)\]")
-                        type = "Vector{Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}}"
+                        type = "Union{Vector, Array}"
                     else
                         type = "Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}"
                     end
