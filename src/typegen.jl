@@ -86,11 +86,7 @@ end
 function startGen(pkg, file, type, fullpath, overwrite)
     jl_fname = "$(pkg)_$(file).jl"
     target = joinpath(@__DIR__,"gen",jl_fname)
-    #  if isfile(target) || target != joinpath(@__DIR__,"gen","roscpp_tutorials_TwoInts.jl")
-    #  if target != joinpath(@__DIR__,"gen","actionlib_tutorials_TwoInts.jl")
-    #  if ! occursin("geometry_msgs", target)
-    #  if ! overwrite && ! occursin("std_msgs", target)
-    if ! overwrite && ! occursin("std_msgs", target)
+    if ! overwrite && isfile(target)
         println(target," found but already generated. Skipping.")
     else
         thefile = joinpath(fullpath, file*"."*type)
@@ -189,7 +185,7 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
                 meta *= "@cxx c->$(fields[i])\n"
             end
         # Vector of misc message type
-        elseif occursin("Vector{", types[i])
+        elseif types[i] == "Union{Vector, Array}"
             meta *= "unsafe_wrap(DenseArray, @cxx c->$(fields[i]))\n"
         # Misc message type
         else
@@ -236,7 +232,6 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
             if types[i] == "String"
                 meta *= "icxx\" \$c->$(fields[i]) = \$(pointer(value));\"\n"
             elseif occursin("Vector{", types[i])
-                #  meta *= "icxx\" \$c->$(fields[i]) = \$(pointer(value));\"\n"
                 meta *= "icxx\" \$c->$(fields[i]).clear();\"\n"
                 meta *= "    for i in 1:length(value)\n"
                 meta *= "        icxx\" \$c->$(fields[i]).push_back(\$(value[i]));\"\n"
@@ -248,6 +243,12 @@ function finishGen(jl_fname, pkg, name, type, includes, types, fields, prefix, s
             else
                 meta *= "icxx\" \$c->$(fields[i]) = \$value;\"\n"
             end
+        # Vector of misc message type
+        elseif types[i] == "Union{Vector, Array}"
+            meta *= "icxx\" \$c->$(fields[i]).clear();\"\n"
+            meta *= "    for i in 1:length(value)\n"
+            meta *= "        icxx\" \$c->$(fields[i]).push_back(*\$(value[i]));\"\n"
+            meta *= "    end\n"
         # Misc message type
         else
             meta *= "icxx\" \$c->$(fields[i]) = \$value;\"\n"
@@ -316,6 +317,8 @@ function fileAnalysis(file, parent_pkg, t)
                 end
                 if haskey(primitive_types, type)
                     type = primitive_types[type]
+                elseif haskey(primitive_types, replace(type, r"\[(.*)\]" => ""))
+                    type = primitive_types[replace(type, r"\[(.*)\]" => "")]
                 else
                     if !occursin("/", type)
                         type = parent_pkg * "/" * type
@@ -325,8 +328,8 @@ function fileAnalysis(file, parent_pkg, t)
                     type = replace(type, '/' => '.')
                 end
                 if occursin(".", type)
-                    if endswith(type, "[]")
-                        type = "Vector{Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}}"
+                    if endswith(type, r"\[(.*)\]")
+                        type = "Union{Vector, Array}"
                     else
                         type = "Union{Cxx.CxxCore.CppPtr, Cxx.CxxCore.CppValue, Cxx.CxxCore.CppRef}"
                     end
@@ -351,7 +354,7 @@ end
 
 function msgGenerator(overwrite=false)
     println("Generating ROS types...")
-    types_of_interest = ["msg", "srv", "action"]
+    #  types_of_interest = ["msg", "srv", "action"]
     types_of_interest = ["msg", "srv"]
     packages = package.getAll()
     for p in packages

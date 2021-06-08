@@ -1,7 +1,8 @@
 ![ROS.jl](docs/src/assets/logo.png)
 
 [![Build Status](https://travis-ci.com/gstavrinos/ROS.jl.svg?branch=master)](https://travis-ci.com/gstavrinos/ROS.jl)
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://gstavrinos.github.io/ROS.jl/stable)
+[![Code Coverage](https://codecov.io/gh/gstavrinos/ROS.jl/branch/master/graph/badge.svg?token=DibnIeBhqa)](https://codecov.io/gh/gstavrinos/ROS.jl)
+[![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://gstavrinos.github.io/ROS.jl/stable)
 
 ROS.jl is a Julia wrapper of the ROS C++ client.
 
