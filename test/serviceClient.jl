@@ -12,10 +12,12 @@ function testServiceClient()
     @test ROS.isValid(srvc)
 
     loop = 500
-    while loop > 0 && !called_success
+    global called_success
+    srv = ROS.std_srvs_SetBool()
+    while loop > 0 && !Bool(srv.response.success)
         println("Service client at loop: $loop")
         if ROS.exists(srvc)
-            ROS.call(srvc, ROS.std_srvs_SetBool())
+            ROS.call(srvc, srv) 
             called_success = true
         end
         loop -= 1
