@@ -1,6 +1,5 @@
 ROS.@include std_srvs: SetBool
 
-
 function testServiceClient()
     ROS.init("testSC")
     nh = ROS.NodeHandle()
@@ -12,6 +11,7 @@ function testServiceClient()
 
     loop = 500
     while loop > 0
+        println("Service client at loop: $loop")
         if ROS.exists(srvc)
             ROS.call(srvc, ROS.std_srvs_SetBool())
             break

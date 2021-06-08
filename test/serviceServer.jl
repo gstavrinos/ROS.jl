@@ -12,6 +12,7 @@ function testServiceServer()
 
     loop = 500
     while loop > 0 && !callback_enabled
+        println("Service server at loop: $loop")
         loop -= 1
         ROS.sleep(ROS.Rate(10))
         ROS.spinOnce()
