@@ -1,5 +1,7 @@
 ROS.@include std_srvs: SetBool
 
+called_success = false
+
 function testServiceClient()
     ROS.init("testSC")
     nh = ROS.NodeHandle()
@@ -10,7 +12,6 @@ function testServiceClient()
     @test ROS.isValid(srvc)
 
     loop = 500
-    called_success = false
     while loop > 0 && !called_success
         println("Service client at loop: $loop")
         if ROS.exists(srvc)
