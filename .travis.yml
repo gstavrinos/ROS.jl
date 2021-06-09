@@ -34,7 +34,7 @@ jobs:
                     using Cxx;
                     Pkg.instantiate();'
         - source /opt/ros/noetic/setup.bash && roscore &
-        - JULIA_NUM_THREADS=4 julia --code-coverage test/runtests.jl
+        - JULIA_NUM_THREADS=8 julia --code-coverage test/runtests.jl
       after_success:
         - rm src/gen/!(__*)
         - julia -e 'using Pkg; cd(Pkg.dir("ROS")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
