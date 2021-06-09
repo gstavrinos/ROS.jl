@@ -36,7 +36,7 @@ function testActionServer()
     ROS.actionlib.isNewGoalAvailable(action_server)
     ROS.actionlib.isPreemptRequested(action_server)
 
-    loop = 500
+    loop = 100
     while loop > 0 && !as_callback_enabled
         loop -= 1
         ROS.sleep(ROS.Rate(10))
