@@ -11,7 +11,9 @@ function testServiceServer()
     @test ROS.getService(srv) == "/test_srv"
 
     loop = 500
+    global callback_enabled = false
     while loop > 0 && !callback_enabled
+        println("Service server at loop: $loop")
         loop -= 1
         ROS.sleep(ROS.Rate(10))
         ROS.spinOnce()

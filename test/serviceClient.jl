@@ -1,6 +1,5 @@
 ROS.@include std_srvs: SetBool
 
-
 function testServiceClient()
     ROS.init("testSC")
     nh = ROS.NodeHandle()
@@ -11,16 +10,19 @@ function testServiceClient()
     @test ROS.isValid(srvc)
 
     loop = 500
-    while loop > 0
+    called_success = false
+    srv = ROS.std_srvs_SetBool()
+    while loop > 0 && !called_success
+        println("Service client at loop: $loop")
+        println(srv.response.message)
         if ROS.exists(srvc)
-            ROS.call(srvc, ROS.std_srvs_SetBool())
-            break
+            called_success = ROS.call(srvc, srv)
         end
         loop -= 1
         ROS.sleep(ROS.Rate(10))
         ROS.spinOnce()
     end
-    @test loop > 0
+    @test called_success 
     @test !ROS.isPersistent(srvc)
 
     println("All $(basename(@__FILE__)) tests passed.")

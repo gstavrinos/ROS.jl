@@ -1,3 +1,4 @@
+__precompile__(false)
 module ROS
 ENV["JULIA_CXX_RTTI"]=1
 using Cxx

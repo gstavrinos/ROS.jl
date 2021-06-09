@@ -1,8 +1,8 @@
 ENV["JULIA_CXX_RTTI"]=1
 using Cxx
 using Test
-include("../src/ROS.jl")
-#  using ROS
+#  include("../src/ROS.jl")
+using ROS
 
 ROS.@genNew
 ROS.@updateAll
@@ -22,10 +22,10 @@ s = Threads.@spawn testSubscriber()
 p = Threads.@spawn testPublisher()
 wait(p)
 wait(s)
-sc = Threads.@spawn testServiceClient()
 ss = Threads.@spawn testServiceServer()
-wait(sc)
+sc = Threads.@spawn testServiceClient()
 wait(ss)
+wait(sc)
 
 include("tf.jl")
 include("time.jl")
