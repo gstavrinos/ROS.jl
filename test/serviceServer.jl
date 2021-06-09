@@ -12,13 +12,13 @@ function testServiceServer()
 
     loop = 100
     global srv_callback_enabled = false
-    while loop > 0 && !callback_enabled
+    while loop > 0 && !srv_callback_enabled
         println("Service server at loop: $loop")
         loop -= 1
         ROS.sleep(ROS.Rate(10))
         ROS.spinOnce()
     end
-    @test callback_enabled
+    @test srv_callback_enabled
 
     ROS.shutdown(srv)
     ROS.shutdown(nh)
