@@ -1,6 +1,6 @@
 ROS.@include std_srvs: SetBool
 
-callback_enabled = false
+srv_callback_enabled = false
 
 function testServiceServer()
     ROS.init("testSS")
@@ -11,7 +11,7 @@ function testServiceServer()
     @test ROS.getService(srv) == "/test_srv"
 
     loop = 100
-    global callback_enabled = false
+    global srv_callback_enabled = false
     while loop > 0 && !callback_enabled
         println("Service server at loop: $loop")
         loop -= 1
@@ -29,6 +29,6 @@ end
 function srv_callback(req,res)
     res.success = true
     res.message = ":D"
-    global callback_enabled = true
+    global srv_callback_enabled = true
     return true
 end

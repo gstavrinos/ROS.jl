@@ -14,7 +14,6 @@ function testServiceClient()
     srv = ROS.std_srvs_SetBool()
     while loop > 0 && !called_success
         println("Service client at loop: $loop")
-        println(srv.response.message)
         if ROS.exists(srvc)
             called_success = ROS.call(srvc, srv)
         end
