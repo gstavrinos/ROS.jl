@@ -9,7 +9,7 @@ function testServiceClient()
     @test ROS.getService(srvc) == "/test_srv"
     @test ROS.isValid(srvc)
 
-    loop = 500
+    loop = 100
     called_success = false
     srv = ROS.std_srvs_SetBool()
     while loop > 0 && !called_success
@@ -24,6 +24,8 @@ function testServiceClient()
     end
     @test called_success 
     @test !ROS.isPersistent(srvc)
+
+    ROS.shutdown(nh)
 
     println("All $(basename(@__FILE__)) tests passed.")
 end

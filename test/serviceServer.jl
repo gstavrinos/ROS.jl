@@ -10,7 +10,7 @@ function testServiceServer()
 
     @test ROS.getService(srv) == "/test_srv"
 
-    loop = 500
+    loop = 100
     global callback_enabled = false
     while loop > 0 && !callback_enabled
         println("Service server at loop: $loop")
@@ -21,6 +21,7 @@ function testServiceServer()
     @test callback_enabled
 
     ROS.shutdown(srv)
+    ROS.shutdown(nh)
 
     println("All $(basename(@__FILE__)) tests passed.")
 end

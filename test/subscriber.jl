@@ -19,6 +19,7 @@ function testSubscriber()
     end
     @test callback_enabled
     ROS.shutdown(sub)
+    ROS.shutdown(nh)
     println("All $(basename(@__FILE__)) tests passed.")
 end
 

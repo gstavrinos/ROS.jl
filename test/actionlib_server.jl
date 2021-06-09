@@ -44,6 +44,7 @@ function testActionServer()
     end
     @test callback_enabled
     ROS.actionlib.shutdown(action_server)
+    ROS.shutdown(nh)
     println("All $(basename(@__FILE__)) tests passed.")
 end
 

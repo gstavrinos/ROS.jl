@@ -21,6 +21,7 @@ function testActionClient()
     ROS.actionlib.isServerConnected(action_client)
 
     ROS.actionlib.stopTrackingGoal(action_client)
+    ROS.shutdown(nh)
     println("All $(basename(@__FILE__)) tests passed.")
 end
 
