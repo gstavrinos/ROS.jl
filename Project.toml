@@ -1,7 +1,7 @@
 name = "ROS"
 uuid = "a492bfac-16cc-4d50-a8b6-f03352b6b563"
 authors = ["George Stavrinos <gstavrinos@protonmail.com>"]
-version = "0.2.3"
+version = "0.2.4"
 
 [deps]
 Cxx = "a0b5b9ef-44b7-5148-a2d1-f6db19f3c3d2"
