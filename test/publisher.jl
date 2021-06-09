@@ -39,6 +39,7 @@ function testPublisher()
         ROS.spinOnce()
     end
     ROS.shutdown(pub)
+    ROS.shutdown(nh)
     println("All $(basename(@__FILE__)) tests passed.")
 end
 
